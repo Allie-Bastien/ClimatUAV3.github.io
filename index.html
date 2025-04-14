@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sensibilisation au réchauffement climatique - UAV3</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #2e7d32;
+        --secondary-color: #1565c0;
+        --accent-color: #ffc107;
+        --dark-color: #263238;
+        --light-color: #eceff1;
+      }
+
+      body {
+        background: linear-gradient(135deg, #e8f5e9, #e3f2fd);
+        font-family: "Poppins", sans-serif;
+        overflow-x: hidden;
+      }
+
+      .header {
+        background: linear-gradient(
+          45deg,
+          var(--secondary-color),
+          var(--primary-color)
+        );
+        color: white;
+        padding: 30px 20px;
+        text-align: center;
+        border-radius: 15px 15px 0 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("/api/placeholder/1200/400") center/cover;
+        opacity: 0.1;
+        z-index: 0;
+      }
+
+      .header-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .logo {
+        width: 120px;
+        height: auto;
+        filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.3));
+        transition: transform 0.5s;
+      }
+
+      .logo:hover {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5 {
+        font-family: "Montserrat", sans-serif;
+        font-weight: 700;
+      }
+
+      .nav-tabs {
+        border-bottom: none;
+        gap: 5px;
+        margin-bottom: -1px;
+      }
+
+      .nav-tabs .nav-link {
+        border: none;
+        border-radius: 10px 10px 0 0;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        background-color: rgba(255, 255, 255, 0.7);
+        color: var(--dark-color);
+        padding: 12px 20px;
+      }
+
+      .nav-tabs .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+        transform: translateY(-3px);
+      }
+
+      .nav-tabs .nav-link.active {
+        background: linear-gradient(to right, var(--primary-color), #43a047);
+        color: white;
+        box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .tab-content {
+        position: relative;
+      }
+
+      .tab-pane {
+        padding: 30px;
+        background-color: white;
+        border-radius: 0 15px 15px 15px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+        transition: all 0.5s ease;
+      }
+
+      .tab-pane h3 {
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--accent-color);
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+
+      .data-container {
+        background-color: var(--light-color);
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 20px;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .team-member {
+        transition: all 0.3s ease;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+
+      .team-member:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        background-color: #f5f5f5;
+      }
+
+      .team-member img {
+        border-radius: 12px;
+        border: 3px solid var(--primary-color);
+        transition: all 0.3s ease;
+      }
+
+      .team-member:hover img {
+        transform: scale(1.05);
+      }
+
+      .team-member p {
+        font-weight: 500;
+        margin-top: 15px;
+        color: var(--dark-color);
+      }
+
+      .team-member span {
+        color: var(--primary-color);
+        font-weight: 300;
+        display: block;
+      }
+
+      .info-box {
+        background: linear-gradient(to right, #e3f2fd, #e8f5e9);
+        border-left: 5px solid var(--secondary-color);
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+      }
+
+      .info-box:hover {
+        transform: scale(1.02);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .info-box strong {
+        color: var(--secondary-color);
+      }
+
+      /* Animations */
+      .fade-in {
+        animation: fadeIn 1s;
+      }
+
+      .slide-in {
+        animation: slideInRight 0.5s;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideInRight {
+        from {
+          transform: translateX(50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      /* Scrollbar styling */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--secondary-color);
+      }
+
+      /* Footer */
+      .footer {
+        background: linear-gradient(45deg, var(--dark-color), #37474f);
+        color: white;
+        padding: 20px;
+        border-radius: 0 0 15px 15px;
+        margin-top: 20px;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        border-radius: 8px;
+        padding: 10px 20px;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--secondary-color);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Chart container */
+      .chart-container {
+        position: relative;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mt-5 mb-5">
+      <div class="header">
+        <div class="header-content">
+          <img
+            src="logo.png"
+            alt="Pollution Trends by Year"
+            style="width: 10%; height: auto"
+          />
+
+          <h1 class="mt-3 animate__animated animate__fadeInUp">
+            Sensibilisation au réchauffement climatique
+          </h1>
+          <p class="lead animate__animated animate__fadeInUp animate__delay-1s">
+            Comprendre les changements climatiques grâces aux donnés
+          </p>
+        </div>
+      </div>
+
+      <ul class="nav nav-tabs mt-3" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="temperature-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#temperature"
+            type="button"
+            role="tab"
+          >
+            <i class="fas fa-temperature-high me-2"></i>Température
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="pollution-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#pollution"
+            type="button"
+            role="tab"
+          >
+            <i class="fas fa-smog me-2"></i>Pollution
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="precipitation-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#precipitation"
+            type="button"
+            role="tab"
+          >
+            <i class="fas fa-cloud-rain me-2"></i>Précipitation
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="queries-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#queries"
+            type="button"
+            role="tab"
+          >
+            <i class="fas fa-database me-2"></i>Résultats de requêtes
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="team-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#team"
+            type="button"
+            role="tab"
+          >
+            <i class="fas fa-users me-2"></i>Membres de l'équipe
+          </button>
+        </li>
+      </ul>
+
+      <div class="tab-content mt-3">
+        <div class="tab-pane fade show active" id="temperature" role="tabpanel">
+          <h3>
+            <i class="fas fa-temperature-high me-2"></i>Analyse des données sur
+            la température
+          </h3>
+          <p class="lead">
+            Voici les tendances de températures dans les différentes provinces
+            canadienne (2021–2023)
+          </p>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="info-box">
+                <h5>Le saviez-vous?</h5>
+                <p>
+                  La température moyenne globalle a montée de plus de 1°C depuis
+                  le début de l'ère industrielle.
+                </p>
+              </div>
+              <div class="info-box">
+                <h5>Points clés</h5>
+                <p>
+                  Les régions artiques se réchauffent deux fois plus vite que la
+                  moyenne globalle.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="chart-container">
+                <img
+                  src="Temperature Trends by Year.png"
+                  alt="Temperature Trends by Year"
+                  style="width: 100%; height: auto"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="pollution" role="tabpanel">
+          <h3>
+            <i class="fas fa-smog me-2"></i>Analyse des donnés sur la pollution
+          </h3>
+          <p class="lead">
+            Surveillance des niveaux d'émission de CO₂ au travert des
+            différentes provinces Canadiennes (2021–2023)
+          </p>
+
+          <div class="row">
+            <div class="col-md-8">
+              <div class="chart-container">
+                <img
+                  src="Pollution2021.png"
+                  alt="Pollution Trends by Year"
+                  style="width: 100%; height: auto"
+                />
+              </div>
+              <div class="chart-container">
+                <img
+                  src="Pollution 2022.png"
+                  alt="Pollution Trends by Year"
+                  style="width: 100%; height: auto"
+                />
+              </div>
+              <div class="chart-container">
+                <img
+                  src="Pollution2023.png"
+                  alt="Pollution Trends by Year"
+                  style="width: 100%; height: auto"
+                />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="info-box">
+                <h5>Pollutants principaux</h5>
+                <p>
+                  Le dioxyde de carbone (CO2), le methane (CH4) et le protoxyde
+                  d'azote (N2O) sont les plus grand gaz à effet de serre.
+                </p>
+              </div>
+              <div class="info-box">
+                <h5>Source des émissions</h5>
+                <p>
+                  Le Transport, la production énergétique et les processus
+                  industriaux sont les contributeurs majeurs.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="precipitation" role="tabpanel">
+          <h3>
+            <i class="fas fa-cloud-rain me-2"></i>Modèle de précipitations
+          </h3>
+          <p class="lead">
+            Analyse des pluies au travert des provinces Canadiennes (2021–2023)
+          </p>
+
+          <div class="chart-container mb-4">
+            <img
+              src="Precipitaion(2021).png"
+              alt="Precipitation Trends by Year"
+              style="width: 100%; height: auto"
+            />
+          </div>
+          <div class="chart-container mb-4">
+            <img
+              src="Precipitaion(2022).png"
+              alt="Precipitation Trends by Year"
+              style="width: 100%; height: auto"
+            />
+          </div>
+          <div class="chart-container mb-4">
+            <img
+              src="Precipitation(2023).png"
+              alt="Precipitation Trends by Year"
+              style="width: 100%; height: auto"
+            />
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <div class="info-box">
+                <h5>Changements dans le modèle</h5>
+                <p>
+                  Les changements climatiques amène à des précipitations
+                  extrêmes dans certaines régions et des épisodes de sécheresse
+                  dans d'autres.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="info-box">
+                <h5>Impact sur l'agriculture</h5>
+                <p>
+                  Les changements sur les précipitations affecte directement le
+                  rendement des cultures et la sécurité alimentaire à l'échelle
+                  globalle.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="queries" role="tabpanel">
+          <h3>
+            <i class="fas fa-database me-2"></i>Résultats des requêtes dans la
+            base de données.
+          </h3>
+          <p class="lead">
+            Trouvailles clés sur l'analyse des donnés sur notre climat
+          </p>
+
+          <div class="data-container">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card mb-3">
+                  <div class="card-header bg-primary text-white">
+                    Extrêmes de températures
+                  </div>
+                  <div class="card-body">
+                    <p>
+                      <strong>Mois le plus chaud:</strong>
+                      <span class="text-danger">Jul (18.00°C)</span>
+                    </p>
+                    <p>
+                      <strong>Mois le plus froid:</strong>
+                      <span class="text-info">Jan (-10.94°C)</span>
+                    </p>
+                    <p>
+                      <strong>Province la plus chaude:</strong>
+                      <span class="text-warning"
+                        >Colombie britannique (10.34°C)</span
+                      >
+                    </p>
+                    <p>
+                      <strong>Province la plus froide:</strong>
+                      <span class="text-info">Nunavut (-11.19°C)</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card mb-3">
+                  <div class="card-header bg-info text-white">
+                    Analyse des Précipitations
+                  </div>
+                  <div class="card-body">
+                    <p>
+                      <strong>Mois le plus pluvieux:</strong>
+                      <span class="text-primary">Jun (97.08 mm)</span>
+                    </p>
+                    <p>
+                      <strong>Mois le moin pluvieux:</strong>
+                      <span class="text-danger">Dec (58.39 mm)</span>
+                    </p>
+                    <p>
+                      <strong>Province la plus pluvieuse:</strong>
+                      <span class="text-success"
+                        >Terre-Neuve-et-Labrador (133.17 mm)</span
+                      >
+                    </p>
+                    <p>
+                      <strong>Province la moin pluvieuse:</strong>
+                      <span class="text-warning">Yukon (22.40 mm)</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-3">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header bg-success text-white">
+                    Pollution Analysis
+                  </div>
+                  <div class="card-body">
+                    <p>
+                      <strong>Mois le plus polluant:</strong>
+                      <span class="text-danger">Apr (4.32 Mt)</span>
+                    </p>
+                    <p>
+                      <strong>Mois le moin polluant:</strong>
+                      <span class="text-info">Apr (4.32 Mt)</span>
+                    </p>
+                    <p>
+                      <strong>Province la plus polluante:</strong>
+                      <span class="text-warning">Alberta (21.21 Mt)</span>
+                    </p>
+                    <p>
+                      <strong>Province la moin polluante:</strong>
+                      <span class="text-success"
+                        >Territoires du nord-ouest (0.06 Mt)</span
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="team" role="tabpanel">
+          <h3><i class="fas fa-users me-2"></i>Notre équipe de recherche</h3>
+          <p class="lead">
+            Voici les experts derrière nos recherches sur les changements
+            climatiques
+          </p>
+
+          <div class="row mt-4">
+            <div class="col-md-3">
+              <div class="team-member text-center">
+                <!-- Team Member 1 Avatar -->
+                <img
+                  viewBox="0 0 120 120"
+                  width="120"
+                  height="120"
+                  src="Anas.jpg"
+                  style="border-radius: 50%; border: 3px solid #2e7d32"
+                >
+                  <rect width="120" height="120" fill="#f8f9fa" />
+                  <!-- Head -->
+                  <circle cx="60" cy="45" r="25" fill="#333" />
+                  <!-- Body -->
+                  <path
+                    d="M60,75 L60,75 Q40,75 30,100 L90,100 Q80,75 60,75 Z"
+                    fill="#333"
+                  />
+                </svg>
+                <h5 class="mt-3">Anas Chakraoui</h5>
+                <span>Chef de projet</span>
+                <div class="mt-2">
+                  <a
+                    href="#"
+                    class="btn btn-sm btn-outline-primary rounded-circle"
+                    ><i class="fab fa-linkedin"></i
+                  ></a>
+                  <a
+                    href="#"
+                    class="btn btn-sm btn-outline-primary rounded-circle"
+                    ><i class="fab fa-github"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="team-member text-center">
+                <!-- Team Member 2 Avatar -->
+                <img
+                  viewBox="0 0 120 120"
+                  width="120"
+                  height="120"
+                  src="Soufiane.jpg"
+                  style="border-radius: 50%; border: 3px solid #2e7d32"
+                >
+                  <rect width="120" height="120" fill="#f8f9fa" />
+                  <!-- Head -->
+                  <circle cx="60" cy="45" r="25" fill="#333" />
+                  <!-- Body -->
+                  <path
+                    d="M60,75 L60,75 Q40,75 30,100 L90,100 Q80,75 60,75 Z"
+                    fill="#333"
+                  />
+                </svg>
+                <h5 class="mt-3">Soufiane Bellout</h5>
+                <span>Analyste des donnés</span>
+                <div class="mt-2">
+                  <a
+                    href="#"
+                    class="btn btn-sm btn-outline-primary rounded-circle"
+                    ><i class="fab fa-linkedin"></i
+                  ></a>
+                  <a
+                    href="#"
+                    class="btn btn-sm btn-outline-primary rounded-circle"
+                    ><i class="fab fa-github"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="team-member text-center">
+                <!-- Team Member 3 Avatar -->
+                <img
+                  viewBox="0 0 120 120"
+                  width="120"
+                  height="120"
+                  src="Mounir.jpg"
+                  style="border-radius: 50%; border: 3px solid #2e7d32"
+                >
+                  <rect width="120" height="120" fill="#f8f9fa" />
+                  <!-- Head -->
+                  <circle cx="60" cy="45" r="25" fill="#333" />
+                  <!-- Body -->
+                  <path
+                    d="M60,75 L60,75 Q40,75 30,100 L90,100 Q80,75 60,75 Z"
+                    fill="#333"
+                  />
+                </svg>
+                <h5 class="mt-3">Djidjeli Mounir</h5>
+                <span>Désigner principale du frontend</span>
+                <div class="mt-2">
+                  <a
+                    href="#"
+                    class="btn btn-sm btn-outline-primary rounded-circle"
+                    ><i class="fab fa-linkedin"></i
+                  ></a>
+                  <a
+                    href="#"
+                    class="btn btn-sm btn-outline-primary rounded-circle"
+                    ><i class="fab fa-github"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="team-member text-center">
+                <!-- Team Member 4 Avatar -->
+                <img
+                  viewBox="0 0 120 120"
+                  width="120"
+                  height="120"
+                  src="Allie.jpg"
+                  style="border-radius: 50%; border: 3px solid #2e7d32"
+                >
+                  <rect width="120" height="120" fill="#f8f9fa" />
+                  <!-- Head -->
+                  <circle cx="60" cy="45" r="25" fill="#333" />
+                  <!-- Body -->
+                  <path
+                    d="M60,75 L60,75 Q40,75 30,100 L90,100 Q80,75 60,75 Z"
+                    fill="#333"
+                  />
+                </svg>
+                <h5 class="mt-3">Bastien Allie</h5>
+                <span>Experte en désign de base de données</span>
+                <div class="mt-2">
+                  <a
+                    href="#"
+                    class="btn btn-sm btn-outline-primary rounded-circle"
+                    ><i class="fab fa-linkedin"></i
+                  ></a>
+                  <a
+                    href="#"
+                    class="btn btn-sm btn-outline-primary rounded-circle"
+                    ><i class="fab fa-github"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer text-center">
+        <div class="mt-4">
+          <p>
+            © 2025 Projet de sensibilisation sur les changements climatiques.
+            Tous droits réservés.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      // Add animations when switching tabs
+      document.addEventListener("DOMContentLoaded", function () {
+        const triggerTabList = document.querySelectorAll("#myTab button");
+        triggerTabList.forEach(function (triggerEl) {
+          triggerEl.addEventListener("shown.bs.tab", function (event) {
+            const targetPane = document.querySelector(
+              event.target.getAttribute("data-bs-target")
+            );
+            targetPane.classList.add("fade-in");
+
+            // Remove the animation class after animation completes
+            setTimeout(function () {
+              targetPane.classList.remove("fade-in");
+            }, 1000);
+          });
+        });
+
+        // Animate elements when they come into view
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("slide-in");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        document
+          .querySelectorAll(".info-box, .team-member, .card")
+          .forEach((el) => {
+            observer.observe(el);
+          });
+      });
+    </script>
+  </body>
+</html>
